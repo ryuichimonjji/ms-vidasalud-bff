@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-vidasalud-bff
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/89fd57c4-d4eb-4f75-967b-9e2df5f4761f/v2.0
+          audiences:
+            - 6caa2398-7197-4a38-9f0f-8572f18c58b9
+            - api://6caa2398-7197-4a38-9f0f-8572f18c58b9
+
+appointments:
+  service:
+    url: http://localhost:8081
