@@ -1,6 +1,8 @@
 package cl.duoc.vidasalud.bff.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -38,5 +40,18 @@ public class AppointmentBffController {
         Object body = restTemplate.postForObject(
             appointmentsServiceUrl + "/api/appointments", request, Object.class);
         return ResponseEntity.ok(body);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Object> changeStatus(@PathVariable Long id, @RequestBody Object request) {
+        HttpEntity<Object> entity = new HttpEntity<>(request);
+        ResponseEntity<Object> response = restTemplate.exchange(
+            appointmentsServiceUrl + "/api/appointments/{id}/status",
+            HttpMethod.PUT,
+            entity,
+            Object.class,
+            id
+        );
+        return ResponseEntity.ok(response.getBody());
     }
 }
